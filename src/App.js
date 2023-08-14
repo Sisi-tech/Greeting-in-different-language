@@ -1,25 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import ReactDOM from "react-dom";
 
-function App() {
+const _GREETINGS = [
+  "Hello",
+  "Hola",
+  "Guten Tag",
+  "Bonjour",
+  "Salve", 
+  "Konnichiwa"
+]
+
+const App = () => {
+  const [val, setVal] = useState("0");
+  useEffect(()=>{
+    document.getElementById("greetings").innerText = _GREETINGS[parseInt(val)];
+  },[val]);
+
+  const updateVal = (e) => { setVal(e.target.value)}
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>How do you say "Hello"?</h1>
+      <p>Choose a language</p>
+      <select value={val} onChange={updateVal}>
+        <option value="0">English</option>
+        <option value="1">Spanish</option>
+        <option value="2">German</option>
+        <option value="3">French</option>
+        <option value="4">Italian</option>
+        <option value="5">Japanese</option>
+      </select>
+      <p id="greetings"></p>
     </div>
-  );
+  )
 }
+
+ReactDOM.render(
+  <App />,
+  document.getElementById("root")
+)
 
 export default App;
